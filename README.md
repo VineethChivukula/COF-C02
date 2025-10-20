@@ -5,3 +5,4 @@
 - [Domain 4](https://notebooklm.google.com/notebook/a202b0ad-ca01-4e64-8a45-39f94eaa0694)
 - [Domain 5](https://notebooklm.google.com/notebook/0bf2c85f-695d-4c0e-830e-ff7092433538)
 - [Domain 6](https://notebooklm.google.com/notebook/ad415f7c-0698-48b3-8ae4-6982e064c306)
+- [Extras](https://notebooklm.google.com/notebook/c4502206-c688-4e50-803d-d42a69731be9)
