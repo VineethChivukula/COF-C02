@@ -7,6 +7,7 @@
 - A stored procedure can be created with an owner's rights when it needs to run with the privileges of the role that owns the stored procedure and the owner will inherit the caller's current virtual warehouse.
 - A stored procedure can be created with a caller's rights when it needs to run with the privileges of the role that called the stored procedure.
 - They are used to automate tasks and can execute database operations.
+- Executing a stored procedure requires the use of a running virtual warehouse.
 - A single executable statement can call only one stored procedure.
 
 ## Example:
