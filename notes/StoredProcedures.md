@@ -9,6 +9,8 @@
 - They are used to automate tasks and can execute database operations.
 - Executing a stored procedure requires the use of a running virtual warehouse.
 - A single executable statement can call only one stored procedure.
+- If a stored procedure is used to execute multiple SQL statements, it is best to test run the
+  stored procedure separately to size the compute resource first.
 
 ## Example:
 
