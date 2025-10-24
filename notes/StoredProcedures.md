@@ -1,7 +1,7 @@
 # Stored Procedures
 
 - They allow you to write procedural code that extends Snowflake's capabilities like branching and looping that go beyond standard SQL.
-- The custom application logic can be written in SQL Scripting, Java, JavaScript, Python, or Scala.
+- The logic can be written in SQL Scripting and the custom application logic can be written in Java, JavaScript, Python, or Scala.
 - The JavaScript portion of the stored procedure code must be enclosed within either single quotes (') or double dollar signs ($$).
 - One key feature is that they can be created to run with a caller's rights or an owner's rights.
 - A stored procedure can be created with an owner's rights when it needs to run with the privileges of the role that owns the stored procedure and the owner will inherit the caller's current virtual warehouse.
@@ -11,7 +11,7 @@
 
 ## Example:
 
-Let us say you have a table called `employees` which has columns id, name, department, and salary. Assume that there is data present in that table. If you want to find out the count of employees who belong to a particular department using stored procedure, you can do it as follows:
+Let us say you have a table called `employees` which has columns id, name, department, and salary. Assume that there is data present in that table. If you want to find out the count of employees who belong to a particular department using stored procedure, you can do so as follows:
 
 ### 1. SQL Scripting
 
@@ -127,7 +127,7 @@ class EmployeeCounter {
 $$;
 ```
 
-To call a stored procedures we simply do it as follows:
+To call a stored procedures we simply do so as follows:
 
 ```SQL
 CALL count_department_employees('Engineering');
