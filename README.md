@@ -22,3 +22,4 @@ Hi! this repository contains study materials for Snowflake SnowPro Core certific
 
 - [Offical Snowflake Documentation](https://docs.snowflake.com/)
 - [DeepSeek for sample code generation and fixes](https://chat.deepseek.com/)
+- Official SnowPro Core Exam Questions

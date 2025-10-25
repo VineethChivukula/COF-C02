@@ -39,7 +39,7 @@ $$;
 ### 2. Java
 
 ```SQL
-CREATE OR REPLACE PROCEDURE count_department_employees(dept_name STRING)
+CREATE OR REPLACE PROCEDURE count_department_employees(deptName STRING)
 RETURNS INTEGER
 LANGUAGE JAVA
 RUNTIME_VERSION = '11'
@@ -52,11 +52,11 @@ import com.snowflake.snowpark_java.Row;
 import com.snowflake.snowpark_java.DataFrame;
 
 public class EmployeeCounter {
-    public int run(Session session, String dept_name) {
+    public int run(Session session, String deptName) {
         String sqlQuery = "SELECT COUNT(*) FROM employees WHERE department = ?";
-        long count_result = session.sql(sqlQuery, new Object[]{dept_name}).collect()[0].getLong(0);
+        long countResult = session.sql(sqlQuery, new Object[]{deptName}).collect()[0].getLong(0);
 
-        return (int) count_result;
+        return (int) countResult;
     }
 }
 $$;
