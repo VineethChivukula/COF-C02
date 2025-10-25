@@ -22,7 +22,12 @@
 - Files that were loaded successfully can be deleted from the stage during a load by specifying PURGE in the `COPY` command and after the load completes, use the `REMOVE` command to remove the files in the stage.
 - To check if the data has been loaded successfully, use STATUS column of the `COPY_HISTORY` command. It shows the status of partial data loads and loading errors if any.
 - To view the status of loaded files, use the `LOAD_HISTORY` command.
+- The `VALIDATE` function can be used to validate the files that have been loaded earlier using the `COPY` command and returns errors encountered during the execution.
 - Snowflake supports creating named file formats, which are database objects that encapsulate all of the required format information. They are are optional, but are recommended when loading.
+- If the file format options or copy options are specified in multiple locations, the load operation applies the options in the following order of precedence:
+  - `COPY INTO TABLE` statement
+  - Stage definition
+  - Table definition
 - CSV, and TSV are the file formats supported for loading structured data.
 - JSON, Avro, ORC, Parquet, and XML are the file formats supported for loading semi-structured data.
 - Snowflake recommends storing semi-structured data in a VARIANT column and it has a compressed size limit of 16 MB.
@@ -35,3 +40,34 @@
   - `PARSE_JSON(null)` outputs SQL NULL
   - `PARSE_JSON('')` outputs SQL NULL
   - `PARSE_JSON('null')` outputs JSON null
+
+## COPY INTO \<table>
+
+- This command loads data from files present in the stage to an existing table where the columns can be reordered or omitted.
+- It has built-in data loading protection that prevents duplicate loading of the same files by default.
+- The bulk data load history that is available upon completion of this command is stored in the metadata of the target table for 64 days.
+- The following are some optional parameters to consider while writing a `COPY` statement:
+  - **`PATTERN = 'regex_pattern'`**: A regular expression pattern string, enclosed in single quotes, specifying the file names and/or paths to match. For the best performance, try to avoid applying patterns that filter on a large number of files.
+  - **`FORCE = TRUE | FALSE`**: Boolean that specifies to load all files, regardless of whether they were loaded previously and haven't changed after they were loaded. This option reloads files, potentially duplicating data in a table.
+  - **`PURGE = TRUE | FALSE`**: Boolean that specifies whether to remove the data files from the stage automatically after the data is loaded successfully.
+  - **`VALIDATION_MODE = RETURN_<n>_ROWS | RETURN_ERRORS | RETURN_ALL_ERRORS`**: A String (constant) that instructs the command to validate the data files instead of loading them into the specified table. It does not support statements that transform data during a load and will return an error.
+    - **RETURN\_\<n>\_ROWS**: Validates the specified number of rows, if no errors are encountered; otherwise, fails at the first error encountered in the rows.
+    - **RETURN_ERRORS**: Returns all errors (parsing, conversion, etc.) across all files specified in the statement.
+    - **RETURN_ALL_ERRORS**: Returns all errors across all files specified in the statement, including files with errors that were partially loaded during an earlier load because the `ON_ERROR` option was set to CONTINUE during the load.
+  - **`STRIP_NULL_VALUES = TRUE | FALSE`**: Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
+
+## Example:
+
+```SQL
+-- Table Stage
+COPY INTO mytable
+
+-- User Stage
+COPY INTO mytable FROM @~/staged
+
+-- Named Internal Stage
+COPY INTO mytable FROM @my_int_stage;
+
+-- External Stage
+COPY INTO mytable FROM 's3://mybucket/./../a.csv';
+```
