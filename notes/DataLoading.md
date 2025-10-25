@@ -23,7 +23,7 @@
 - To check if the data has been loaded successfully, use STATUS column of the `COPY_HISTORY` command. It shows the status of partial data loads and loading errors if any.
 - To view the status of loaded files, use the `LOAD_HISTORY` command.
 - The `VALIDATE` function can be used to validate the files that have been loaded earlier using the `COPY` command and returns errors encountered during the execution.
-- Snowflake supports creating named file formats, which are database objects that encapsulate all of the required format information. They are are optional, but are recommended when loading.
+- Snowflake supports creating named file formats (default - CSV), which are database objects that encapsulate all of the required format information. They are optional, but are recommended when loading.
 - If the file format options or copy options are specified in multiple locations, the load operation applies the options in the following order of precedence:
   - `COPY INTO TABLE` statement
   - Stage definition
