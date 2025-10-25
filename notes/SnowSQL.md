@@ -17,7 +17,6 @@
 - The `PUT` command uploads one or more data files from a local file system onto an internal stage (Named, Table, and User) using SnowSQL.
 - It does not support uploading files onto an external stage.
 - It automatically encrypts file data in transit before it is sent from the machine and compresses them using Gzip.
-- Loading very large files (e.g., 100 GB or larger) is not recommended using SnowSQL and if the file continues to load for almost an entire day then the file loading could be aborted without any portion of the file being committed.
 - Example:
   ```SQL
   PUT 'file:///tmp/data/orders 001.csv' @my_int_stage

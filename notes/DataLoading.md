@@ -1,0 +1,37 @@
+# Data Loading
+
+- It is the process of efficiently importing data from staged (Internal or External) locations into database tables, a process that relies on a virtual warehouse being active to execute DML operations.
+- Snowflake provides multiple loading solutions:
+  - **Bulk Loading**: It is a way to handle batches of data, allowing for simple transformations like column reordering or column omission or type casting during the load using `COPY` command.
+  - **Continuous Loading**: It is a way in which micro-batch ingestion can be performed using Snowpipe either by cloud messaging events or REST API endpoints or Snowpipe streaming.
+  - Data residing in external cloud storage can be queried directly using External Tables or Apache Iceberg™ tables without being physically moved into Snowflake.
+- It is recommended to validate the data before loading into the Snowflake target table using `VALIDATION_MODE` of the `COPY` command and use staging tables to manage `MERGE` statements.
+- Table stage in Snowflake can be omitted from the FROM clause while loading data into a table.
+- Loading very large files (e.g., 100 GB or larger) is not recommended and if the file continues to load for almost an entire day then the file loading could be aborted without any portion of the file being committed.
+- Split larger files into a greater number of smaller files to distribute the load among the compute resources in an active warehouse.
+- The number of load operations that run in parallel cannot exceed the number of data files to be loaded.
+- To optimize the number of parallel operations for a load, it is recommended for aiming to produce data files roughly 100-250 MB (or larger) in size compressed.
+- The number of data files that can be processed in parallel is determined by the amount of compute resources in a warehouse.
+- It is recommended to dedicate separate warehouses for loading and querying operations to optimize performance for each.
+- UTF-8 is the default character set when loading CSV files.
+- Fields that contain delimiter characters should be enclosed in quotes (single or double) and if the data contains single or double quotes, then those quotes must be escaped.
+- The number of columns in each row should be consistent.
+- Avoid embedded characters, such as commas for Numeric data types (Example: 123,456).
+- The fastest way to bulk load data files from a stage is to specify a list of specific files to load and hence it is recommended to partition the data into logical paths that include identifying details such as geographical location or other source identifiers, along with the date when the data was written.
+- This allows the execution of concurrent `COPY` statements that match a subset of files, taking advantage of parallel operations.
+- Files that were loaded successfully can be deleted from the stage during a load by specifying PURGE in the `COPY` command and after the load completes, use the `REMOVE` command to remove the files in the stage.
+- To check if the data has been loaded successfully, use STATUS column of the `COPY_HISTORY` command. It shows the status of partial data loads and loading errors if any.
+- To view the status of loaded files, use the `LOAD_HISTORY` command.
+- Snowflake supports creating named file formats, which are database objects that encapsulate all of the required format information. They are are optional, but are recommended when loading.
+- CSV, and TSV are the file formats supported for loading structured data.
+- JSON, Avro, ORC, Parquet, and XML are the file formats supported for loading semi-structured data.
+- Snowflake recommends storing semi-structured data in a VARIANT column and it has a compressed size limit of 16 MB.
+- To upload a JSON file larger than 16 MB, the `STRIP_OUTER_ARRAY` function can be used in the `FILE_FORMAT` as it removes the outer array structure and loads the records into separate table rows.
+- Snowflake supports two types of NULL values in semi-structured data:
+  - **JSON null (VARIANT NULL)**: It means that the value is stored as a string containing the word "null".
+  - **SQL NULL**: It means the value is missing or unknown.
+- `STRIP_NULL_VALUE` can convert a JSON null value to a SQL NULL value.
+- When the input data contains valid JSON information in a string then `PARSE_JSON` function can be used to convert it to a VARIANT value.
+  - `PARSE_JSON(null)` outputs SQL NULL
+  - `PARSE_JSON('')` outputs SQL NULL
+  - `PARSE_JSON('null')` outputs JSON null
