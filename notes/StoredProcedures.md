@@ -130,7 +130,7 @@ class EmployeeCounter {
 $$;
 ```
 
-To call a stored procedures we simply do so as follows:
+To call a stored procedure we simply do so as follows:
 
 ```SQL
 CALL count_department_employees('Engineering');
