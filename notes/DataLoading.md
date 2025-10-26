@@ -1,6 +1,6 @@
 # Data Loading
 
-![Data Loading](images\dataloading.png)
+![Data Loading](images/dataloading.png)
 
 - It is the process of efficiently importing data from staged (Internal or External) locations into database tables, a process that relies on a virtual warehouse being active to execute DML operations.
 - Snowflake provides multiple loading solutions:

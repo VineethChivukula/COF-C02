@@ -1,6 +1,6 @@
 # Data Unloading
 
-![Data Unloading](images\dataunloading.png)
+![Data Unloading](images/dataunloading.png)
 
 - It is the process of unloading data to stages from a database table into flat, delimited text files using `COPY` command which requires a running virtual warehouse.
 - Unloading the data directly from Snowflake to the cloud storage location such as AWS is the recommended approach although permissions on an S3 bucket such as `s3:DeleteObject` and `s3:PutObject` are required.
