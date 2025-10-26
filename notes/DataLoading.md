@@ -1,5 +1,7 @@
 # Data Loading
 
+![Data Loading](images\dataloading.png)
+
 - It is the process of efficiently importing data from staged (Internal or External) locations into database tables, a process that relies on a virtual warehouse being active to execute DML operations.
 - Snowflake provides multiple loading solutions:
   - **Bulk Loading**: It is a way to handle batches of data, allowing for simple transformations like column reordering or column omission or type casting during the load using `COPY` command.
@@ -28,7 +30,7 @@
   - `COPY INTO TABLE` statement
   - Stage definition
   - Table definition
-- CSV, and TSV are the file formats supported for loading structured data.
+- Delimited files (CSV, TSV, etc.) are the file formats supported for loading structured data.
 - JSON, Avro, ORC, Parquet, and XML are the file formats supported for loading semi-structured data.
 - Snowflake recommends storing semi-structured data in a VARIANT column and it has a compressed size limit of 16 MB.
 - To upload a JSON file larger than 16 MB, the `STRIP_OUTER_ARRAY` function can be used in the `FILE_FORMAT` as it removes the outer array structure and loads the records into separate table rows.
@@ -50,7 +52,7 @@
   - **`PATTERN = 'regex_pattern'`**: A regular expression pattern string, enclosed in single quotes, specifying the file names and/or paths to match. For the best performance, try to avoid applying patterns that filter on a large number of files.
   - **`FORCE = TRUE | FALSE`**: Boolean that specifies to load all files, regardless of whether they were loaded previously and haven't changed after they were loaded. This option reloads files, potentially duplicating data in a table.
   - **`PURGE = TRUE | FALSE`**: Boolean that specifies whether to remove the data files from the stage automatically after the data is loaded successfully.
-  - **`VALIDATION_MODE = RETURN_<n>_ROWS | RETURN_ERRORS | RETURN_ALL_ERRORS`**: A String (constant) that instructs the command to validate the data files instead of loading them into the specified table. It does not support statements that transform data during a load and will return an error.
+  - **`VALIDATION_MODE = RETURN_<n>_ROWS | RETURN_ERRORS | RETURN_ALL_ERRORS`**: A string (constant) that instructs the command to validate the data files instead of loading them into the specified table. It does not support statements that transform data during a load and will return an error.
     - **RETURN\_\<n>\_ROWS**: Validates the specified number of rows, if no errors are encountered; otherwise, fails at the first error encountered in the rows.
     - **RETURN_ERRORS**: Returns all errors (parsing, conversion, etc.) across all files specified in the statement.
     - **RETURN_ALL_ERRORS**: Returns all errors across all files specified in the statement, including files with errors that were partially loaded during an earlier load because the `ON_ERROR` option was set to CONTINUE during the load.
@@ -60,10 +62,10 @@
 
 ```SQL
 -- Table Stage
-COPY INTO mytable
+COPY INTO mytable;
 
 -- User Stage
-COPY INTO mytable FROM @~/staged
+COPY INTO mytable FROM @~/staged;
 
 -- Named Internal Stage
 COPY INTO mytable FROM @my_int_stage;

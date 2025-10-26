@@ -63,6 +63,8 @@ Let us say you want to create a task that populates a table `timestamp_log` with
 
 # Task Graphs
 
+![Task Graphs](images/taskgraphs.png)
+
 - In Snowflake, you can manage multiple tasks with a task graph, also known as a directed acyclic graph (DAG).
 - A task graph is composed of a root task and dependent child tasks.
 - The dependencies must run in a start-to-finish direction, with no loops.
