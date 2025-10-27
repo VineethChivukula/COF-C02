@@ -14,3 +14,66 @@
 - A cloned object is considered a new object in Snowflake so any privileges granted on the source object do not transfer to the cloned object.
 - However, a cloned container object like a database or schema retains any privileges granted on the objects contained in the source object.
 - When a database is cloned it replicates all granted privileges on the corresponding child objects except OWNERSHIP.
+
+## Example:
+
+Let us continue the [example](Roles.md#example) from Roles. Assume that the virtual warehouse is named ANALYST_WH, database is named HR_DB, schema is named ANALYTICS, and the table is named EMPLOYEES. You need to work on the EMPLOYEES table. Following commands can be executed by the Snowflake User Administrator:
+
+- **Grant usage privileges**: The following commands in sequence is used to assign USAGE privilege to a role.
+
+  ```SQL
+  GRANT USAGE
+  ON WAREHOUSE analyst_wh
+  TO ROLE hr_analyst;
+
+  GRANT USAGE
+  ON DATABASE hr_db
+  TO ROLE hr_analyst;
+
+  GRANT USAGE
+  ON SCHEMA hr_db.analytics
+  TO ROLE hr_analyst;
+
+  GRANT SELECT
+  ON TABLE hr_db.analytics.employees
+  TO ROLE hr_analyst;
+  ```
+
+- **View granted privileges**: The following sequence of commands lists all access control privileges that have been explicitly granted to roles, users, and schemas.
+
+  ```SQL
+  SHOW GRANTS
+  TO ROLE hr_analyst;
+
+  SHOW GRANTS
+  TO USER vineeth;
+
+  SHOW GRANTS
+  ON SCHEMA hr_db.analytics;
+  ```
+
+- **Grant access to all tables**: The following command is used to assign SELECT privilege for all tables to a role.
+
+  ```SQL
+  GRANT SELECT
+  ON ALL TABLES
+  IN SCHEMA hr_db.analytics
+  TO ROLE hr_analyst;
+  ```
+
+- **Grant access to future tables**: The following command is used to assign SELECT privilege for future tables to a role.
+
+  ```SQL
+  GRANT SELECT
+  ON FUTURE TABLES
+  IN SCHEMA hr_db.analytics
+  TO ROLE hr_analyst;
+  ```
+
+- **Revoke privilege**: The following command is used to revoke access privilege on a table.
+
+  ```SQL
+  REVOKE SELECT
+  ON TABLE hr_db.analytics.employees
+  FROM ROLE hr_analyst;
+  ```

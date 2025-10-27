@@ -66,7 +66,7 @@ They are the roles that cannot be dropped and the privileges cannot be revoked. 
 
 ### Example:
 
-Consider a scenario where you got your first job as a data analyst and you are assigned to a Snowflake project. You need to work on HR employee data. Following sequence commands are executed by the Snowflake User Administrator:
+Consider a scenario where you got your first job as a data analyst and you are assigned to a Snowflake project. You need to work on HR employee data. Following commands can be executed by the Snowflake User Administrator:
 
 - **Create custom role**: The following command is used to create a new role in the system.
   ```SQL
@@ -95,4 +95,10 @@ Consider a scenario where you got your first job as a data analyst and you are a
   ```SQL
   REVOKE ROLE hr_analyst
   FROM USER vineeth;
+  ```
+
+- **Use role**: The following command specifies the active/current primary role for the session.
+
+  ```SQL
+  USE ROLE hr_analyst;
   ```
