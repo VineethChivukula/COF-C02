@@ -6,6 +6,7 @@ Hi! this repository contains study materials for Snowflake SnowPro Core certific
 
 - I highly recommend reading the markdown notes first as it gives you a fair idea about the concepts.
 - These notes are prepared for quick reference, and if you want to go deep, kindly read the official docs.
+- Utilise the [Official Study Guide](/SnowProCoreStudyGuide.pdf) for sequential learning.
 - Use the following NotebookLM links to gain knowledge by asking questions:
 
   - [Domain 1](https://notebooklm.google.com/notebook/391c6691-42dd-4677-a9ff-34c8e4bd7277)

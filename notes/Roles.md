@@ -27,7 +27,9 @@ They are the roles that cannot be dropped and the privileges cannot be revoked. 
 - Partner Connect is limited to administrators who have this role and a verified email address in Snowflake.
 - `CREATE RESOURCE MONITOR` command can only be executed by administrators having this role.
 - This role can make grant decisions to objects within a managed access schema.
-- To enable MFA token caching, this role can set `ALLOW_CLIENT_MFA_CACHING` parameter to TRUE.
+- Avoid using this role to create objects unless these objects need to have the highest level of secure access.
+- All users assigned to this role are required to use multi-factor authentication (MFA) for login and to enable MFA token caching, set `ALLOW_CLIENT_MFA_CACHING` parameter to TRUE.
+- A user with this role cannot view the results for a query run by another user.
 
 ### SECURITYADMIN
 
@@ -58,8 +60,9 @@ They are the roles that cannot be dropped and the privileges cannot be revoked. 
 
 ## Custom Roles
 
-- These can be created using the USERADMIN role or a higher role as well as by any role to which the `CREATE ROLE` privilege has been granted.
+- These can be created using the USERADMIN role or a higher role or any role to which the `CREATE ROLE` privilege has been granted.
 - By default, a newly-created role is not assigned to any user, nor granted to any other role.
+- If a user wants to add additional privileges to the system-defined roles for their virtual warehouse, then they can grant the additional privileges to a custom role.
 
 ### Example:
 
@@ -69,11 +72,12 @@ Consider a scenario where you got your first job as a data analyst and you are a
   ```SQL
   CREATE ROLE hr_analyst;
   ```
-- **Create user**: The following command is used to create a new user and that user should change password once logged in.
+- **Create user**: When creating a user in Snowflake, it is recommended to set a default role for the user using `DEFAULT_ROLE` property and force an immediate password change using `MUST_CHANGE_PASSWORD` property. The following command is used to create a new user.
 
   ```SQL
   CREATE USER vineeth
   PASSWORD = 'temp_password123'
+  DEFAULT_ROLE = PUBLIC
   MUST_CHANGE_PASSWORD = TRUE;
   ```
 
