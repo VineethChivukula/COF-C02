@@ -19,7 +19,7 @@
 
 Let us continue the [example](Roles.md#example) from Roles. Assume that the virtual warehouse is named ANALYST_WH, database is named HR_DB, schema is named ANALYTICS, and the table is named EMPLOYEES. You need to work on the EMPLOYEES table. Following commands can be executed by the Snowflake User Administrator:
 
-- **Grant usage privileges**: The following commands in sequence is used to assign USAGE privilege to a role.
+- **Grant privileges**: The following commands in sequence is used to assign access privileges to a role.
 
   ```SQL
   GRANT USAGE
